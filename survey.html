@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Only</title>
+
+    <!-- CSS 연결 -->
+    <link rel="stylesheet" href="project.css" />
+    <link rel="stylesheet" href="survey.css" />
+    <script src="menu.js"></script>
+    <script type="module" src="nav-search.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="top">
+        <div class="app-icon">
+          <img src="image-4.png" alt="app icon" />
+        </div>
+
+        <div class="title" onclick="location.href = 'test copy.html'">
+          <h1>오늘 뭐 먹지?</h1>
+          <p>추천 요리의 레시피와 맛집을 한번에 추천</p>
+        </div>
+      </header>
+
+      <!-- Sticky Nav -->
+      <div class="nav-wrap">
+        <nav class="nav">
+          <div class="nav-item" onclick="location.href = 'survey.html'">
+            <span>오늘 뭐 먹지?</span>
+          </div>
+
+          <!-- 레시피 -->
+          <div class="nav-item recipe" onclick="location.href = 'search.html'">
+            <span>레시피</span>
+
+            <div class="dropdown">
+              <button
+                class="drop-item"
+                onclick="
+                  event.stopPropagation();
+                  location.href = 'search.html?q=양식';
+                "
+              >
+                양식
+              </button>
+              <button
+                class="drop-item"
+                onclick="
+                  event.stopPropagation();
+                  location.href = 'search.html?q=중식';
+                "
+              >
+                중식
+              </button>
+              <button
+                class="drop-item"
+                onclick="
+                  event.stopPropagation();
+                  location.href = 'search.html?q=일식';
+                "
+              >
+                일식
+              </button>
+              <button
+                class="drop-item"
+                onclick="
+                  event.stopPropagation();
+                  location.href = 'search.html?q=한식';
+                "
+              >
+                한식
+              </button>
+            </div>
+          </div>
+
+          <div class="nav-item" onclick="location.href = 'map.html'">
+            <span>맛집 지도</span>
+          </div>
+
+          <!-- 검색 -->
+          <div class="nav-item search">
+            <form class="search-box">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="레시피/맛집 검색"
+              />
+              <button type="submit">검색</button>
+            </form>
+          </div>
+        </nav>
+      </div>
+
+      <main class="site-main">
+        <section class="hero">
+          <h2>점심 메뉴 추천 설문</h2>
+          <p>순서대로 체크해 주세요. (미선택시 상관없음/랜덤)</p>
+
+          <form id="survey-form">
+            <!-- 1. 한식 / 중식 / 일식 / 양식 (cuisine) -->
+            <fieldset class="form-group">
+              <legend>1. 먹고 싶은 스타일</legend>
+              <label
+                ><input type="radio" name="cuisine" value="한식" /> 한식</label
+              >
+              <label
+                ><input type="radio" name="cuisine" value="중식" /> 중식</label
+              >
+              <label
+                ><input type="radio" name="cuisine" value="일식" /> 일식</label
+              >
+              <label
+                ><input type="radio" name="cuisine" value="양식" /> 양식</label
+              >
+            </fieldset>
+
+            <!-- 2. 밥 / 빵 / 면 (carb) -->
+            <fieldset class="form-group">
+              <legend>2. 밥 / 빵 / 면 중에서</legend>
+              <label><input type="radio" name="carb" value="밥" /> 밥</label>
+              <label><input type="radio" name="carb" value="빵" /> 빵</label>
+              <label><input type="radio" name="carb" value="면" /> 면</label>
+            </fieldset>
+
+            <!-- 3. 메인 재료 (고기류는 중복 선택 가능) -->
+            <fieldset class="form-group">
+              <legend>3. 메인 재료 (복수 선택 가능)</legend>
+              <!-- 고기류: 여러 개 체크 가능 -->
+              <label
+                ><input
+                  type="checkbox"
+                  name="mainIngredient"
+                  value="돼지고기"
+                />
+                돼지고기</label
+              >
+              <label
+                ><input type="checkbox" name="mainIngredient" value="소고기" />
+                소고기</label
+              >
+              <label
+                ><input type="checkbox" name="mainIngredient" value="닭고기" />
+                닭고기</label
+              >
+
+              <!-- 기타 재료 -->
+              <label
+                ><input type="checkbox" name="mainIngredient" value="해물" />
+                해물</label
+              >
+            </fieldset>
+
+            <!-- 비건 필터 -->
+            <fieldset class="form-group">
+              <legend>비건 옵션</legend>
+              <label>
+                <input type="checkbox" name="vegOnly" value="yes" />
+                고기/해물이 들어가지 않은 메뉴만 추천받기
+              </label>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <legend>4. 조리법</legend>
+              <label
+                ><input type="radio" name="cookStyle" value="" checked />
+                상관없음</label
+              >
+              <label
+                ><input type="radio" name="cookStyle" value="국물" />
+                국물요리</label
+              >
+              <label
+                ><input type="radio" name="cookStyle" value="튀김" />
+                튀김요리</label
+              >
+              <label
+                ><input type="radio" name="cookStyle" value="기타" />
+                기타</label
+              >
+            </fieldset>
+
+            <!-- 5. 매운 정도 (0~3단계, radio) -->
+            <fieldset class="form-group">
+              <legend>5. 매운 정도 (0~3단계)</legend>
+              <label
+                ><input type="radio" name="spicyLevel" value="0" /> 0단계 (전혀
+                안 매운)</label
+              >
+              <label
+                ><input type="radio" name="spicyLevel" value="1" /> 1단계
+                (칼칼한)</label
+              >
+              <label
+                ><input type="radio" name="spicyLevel" value="2" /> 2단계
+                (얼큰한)</label
+              >
+              <label
+                ><input type="radio" name="spicyLevel" value="3" /> 3단계 (아주
+                매운)</label
+              >
+            </fieldset>
+
+            <button type="submit" class="btn-primary">추천 받기</button>
+          </form>
+        </section>
+
+        <section id="result-area"></section>
+      </main>
+    </div>
+    <!-- JS 연결 -->
+    <script>
+      const surveyForm = document.getElementById("survey-form");
+      const resultArea = document.getElementById("result-area");
+
+      surveyForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = new FormData(surveyForm);
+
+        const answer = {
+          cuisine: data.get("cuisine") || "any", // 미선택 → "any"
+          carb: data.get("carb") || "", // 미선택 → "" (상관없음)
+          cookStyle: data.get("cookStyle") || "", // 미선택 → "" (상관없음)
+          mainIngredients:
+            data.getAll("mainIngredient").length > 0
+              ? data.getAll("mainIngredient")
+              : ["any"], // 미선택 → ["any"]
+          vegOnly: data.get("vegOnly") === "yes",
+          spicyLevel:
+            data.get("spicyLevel") !== null
+              ? Number(data.get("spicyLevel"))
+              : null, // 미선택 → 랜덤
+        };
+
+        const menu = pickMenuByAnswer(answer); // menus.js에 정의한 함수 사용
+        renderResult(menu);
+      });
+
+      function renderResult(menu) {
+        if (!menu) {
+          resultArea.innerHTML = `
+      <div class="menu-card">
+        <h3>조건에 맞는 메뉴가 없습니다.</h3>
+        <p>조건을 조금 넓혀서 다시 시도해 보세요.</p>
+      </div>
+    `;
+          return;
+        }
+
+        resultArea.innerHTML = `
+    <div class="menu-card result-flex">
+
+      
+      <div class="result-wrap">
+        <div class="result-image">
+        <img src="${menu.img}" alt="${menu.name}"></div>
+      </div>
+
+      <div class="result-text">
+        <h3>오늘의 추천 메뉴</h3>
+        <p><strong>${menu.name}</strong></p>
+        <p>${menu.cuisine} · ${menu.cookStyle} · ${menu.carb || "없음"}</p>
+        <p>맵기: ${menu.spicyLevel}단계</p>
+        <button id="detail-btn" class="btn-primary">자세히 보기</button>
+      </div>
+
+
+    </div>
+  `;
+
+        document.getElementById("detail-btn").addEventListener("click", () => {
+          sessionStorage.setItem(
+            "selectedMenu",
+            JSON.stringify({ id: menu.id }),
+          );
+          location.href = `search.html?id=${menu.id}`;
+        });
+      }
+    </script>
+  </body>
+</html>

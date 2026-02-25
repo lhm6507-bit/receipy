@@ -1,0 +1,213 @@
+/* survey.css */
+/* project.css의 :root 컬러 변수를 그대로 사용합니다. */
+
+.site-main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 26px 16px 90px;
+}
+
+.hero {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 6px);
+  box-shadow: var(--shadow);
+  padding: 26px 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 은은한 배경 장식 */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -60px -80px auto auto;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 122, 26, 0.24),
+    rgba(255, 207, 58, 0.14),
+    rgba(255, 255, 255, 0)
+  );
+  transform: rotate(15deg);
+  pointer-events: none;
+}
+
+.hero h2 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 950;
+  letter-spacing: -0.3px;
+}
+
+.hero p {
+  margin: 0 0 18px;
+  color: rgba(31, 31, 31, 0.65);
+  font-weight: 650;
+}
+
+#survey-form {
+  display: grid;
+  gap: 14px;
+}
+
+/* fieldset 카드화 */
+.form-group {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #fff;
+  padding: 14px 14px 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.12s ease,
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.form-group:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 122, 26, 0.35);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.form-group legend {
+  padding: 0 8px;
+  font-weight: 950;
+  color: rgba(31, 31, 31, 0.9);
+  letter-spacing: -0.2px;
+}
+
+/* 옵션들: 반응형 그리드 */
+.form-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin: 10px 8px 0 0;
+  border-radius: 12px;
+  border: 1px solid rgba(31, 31, 31, 0.12);
+  background: rgba(255, 246, 239, 0.45);
+  cursor: pointer;
+  user-select: none;
+  font-weight: 750;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease,
+    transform 0.12s ease;
+}
+
+.form-group label:hover {
+  border-color: rgba(255, 122, 26, 0.35);
+  background: rgba(255, 246, 239, 0.9);
+  transform: translateY(-1px);
+}
+
+/* 체크/라디오 */
+.form-group input[type="radio"],
+.form-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+
+/* "비건 옵션"처럼 라벨이 길 때 줄바꿈 자연스럽게 */
+.form-group label {
+  max-width: 100%;
+  white-space: normal;
+}
+
+/* 버튼 */
+.btn-primary {
+  border: 0;
+  border-radius: 16px;
+  padding: 14px 16px;
+  font-weight: 950;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(90deg, var(--orange), var(--yellow));
+  box-shadow: 0 12px 26px rgba(246, 114, 44, 0.22);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    filter 0.12s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(246, 114, 44, 0.28);
+  filter: saturate(1.05);
+}
+
+.btn-primary:active {
+  transform: translateY(0px) scale(0.99);
+}
+
+/* 결과 영역 */
+#result-area {
+  margin-top: 16px;
+}
+
+.menu-card {
+  margin-top: 18px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: var(--shadow);
+  padding: 18px 18px 16px;
+}
+
+.menu-card h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.menu-card p {
+  margin: 6px 0;
+  color: rgba(31, 31, 31, 0.82);
+  font-weight: 700;
+}
+
+.menu-card strong {
+  font-weight: 950;
+}
+
+/* 작은 화면에서 label들이 너무 길게 한 줄로 안 늘어지게 */
+@media (max-width: 560px) {
+  .hero {
+    padding: 20px 16px;
+  }
+  .form-group label {
+    display: flex;
+    width: 100%;
+    margin-right: 0;
+  }
+}
+.result-flex {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.result-text {
+  flex: 1;
+}
+
+.result-image {
+  padding: 2px;
+  border: 2px solid;
+  border-radius: 12px;
+  /* position: absolute;
+  left: 165px;
+  top: 40px; */
+  width: 200px;
+}
+
+.result-image img {
+  width: 100%;
+  border-radius: 12px;
+}

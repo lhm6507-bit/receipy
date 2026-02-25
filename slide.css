@@ -1,0 +1,208 @@
+main {
+  width: 100%;
+  height: 40vh;
+
+  /* ✅ 슬라이드 영역 배경 추가 */
+  position: relative;
+  overflow: visible;
+  border-radius: 26px;
+  border: 1px solid rgba(31, 31, 31, 0.1);
+  background:
+    radial-gradient(
+      1200px 420px at 50% 5%,
+      rgba(255, 207, 58, 0.35),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 380px at 15% 80%,
+      rgba(255, 122, 26, 0.25),
+      transparent 55%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 246, 239, 0.9));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* ✅ 도트 패턴 오버레이 */
+main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(31, 31, 31, 0.06) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ✅ 양쪽 글로우(빛 번짐) */
+main::after {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background:
+    radial-gradient(
+      360px 230px at 15% 55%,
+      rgba(255, 122, 26, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      420px 260px at 85% 55%,
+      rgba(255, 207, 58, 0.22),
+      transparent 60%
+    );
+  filter: blur(18px);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.containers {
+  width: 100%;
+  height: 100%;
+  perspective: 500px;
+
+  /* ✅ 배경 레이어 위에 올라오게 */
+  position: relative;
+  z-index: 1;
+}
+
+.slides {
+  width: 100%;
+  height: 100%;
+  perspective: 500px;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.slide {
+  transition: 0.5s;
+  width: 600px;
+  height: 300px;
+
+  /* ✅ 카드 느낌 업그레이드 */
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 14px 46px rgba(0, 0, 0, 0.25);
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.food-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+:root {
+  --gap: 1; /* 이 값만 조절하면 간격 변경됨 */
+}
+
+.slide:nth-of-type(1),
+.slide:nth-of-type(2) {
+  transform: translate(calc(-50% * (3 * var(--gap))), -50%) translateZ(-100px);
+  filter: blur(3px);
+}
+.slide:nth-of-type(3) {
+  transform: translate(calc(-50% * (2 * var(--gap))), -50%) translateZ(-50px);
+  filter: blur(3px);
+}
+.slide:nth-of-type(4) {
+  transform: translate(calc(-50% * (1 * var(--gap))), -50%) translateZ(50px);
+}
+.slide:nth-of-type(5) {
+  transform: translate(calc(-50% * (0 * var(--gap))), -50%) translateZ(-50px);
+  filter: blur(3px);
+}
+.slide:nth-of-type(6),
+.slide:nth-of-type(7) {
+  transform: translate(calc(-50% * (-1 * var(--gap))), -50%) translateZ(-100px);
+  filter: blur(3px);
+}
+
+/*버튼 */
+.buttons {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 8;
+
+  pointer-events: none;
+}
+
+.buttons button {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  cursor: pointer;
+
+  /* ✅ 버튼 느낌 개선 */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  opacity: 1;
+
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+
+  text-align: center;
+  pointer-events: auto;
+}
+
+.buttons button:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+
+.dots {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 9;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: gray;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.dot.active {
+  opacity: 1;
+  background: black;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+
+  color: white;
+  font-size: 16px;
+
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+}

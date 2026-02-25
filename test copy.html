@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Only</title>
+    <!-- CSS 연결 -->
+    <link rel="stylesheet" href="slide.css" />
+    <link rel="stylesheet" href="project.css" />
+    <script type="module" src="nav-search.js" defer></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="top">
+        <div class="app-icon">
+          <img src="image-4.png" alt="app icon" />
+        </div>
+
+        <div class="title" onclick="location.href = 'test copy.html'">
+          <h1>오늘 뭐 먹지?</h1>
+          <p>추천 요리의 레시피와 맛집을 한번에 추천</p>
+        </div>
+      </header>
+
+      <!-- Sticky Nav -->
+      <div class="nav-wrap">
+        <nav class="nav">
+          <div class="nav-item" onclick="location.href = 'survey.html'">
+            <span>오늘 뭐 먹지?</span>
+          </div>
+
+          <!-- 레시피 -->
+          <div class="nav-item recipe" onclick="location.href = 'search.html'">
+            <span>레시피</span>
+
+            <div class="dropdown">
+              <button
+                class="drop-item"
+                onclick="
+                  event.stopPropagation();
+                  location.href = 'search.html?q=양식';
+                "
+              >
+                양식
+              </button>
+              <button
+                class="drop-item"
+                onclick="
+                  event.stopPropagation();
+                  location.href = 'search.html?q=중식';
+                "
+              >
+                중식
+              </button>
+              <button
+                class="drop-item"
+                onclick="
+                  event.stopPropagation();
+                  location.href = 'search.html?q=일식';
+                "
+              >
+                일식
+              </button>
+              <button
+                class="drop-item"
+                onclick="
+                  event.stopPropagation();
+                  location.href = 'search.html?q=한식';
+                "
+              >
+                한식
+              </button>
+            </div>
+          </div>
+
+          <div class="nav-item" onclick="location.href = 'map.html'">
+            <span>맛집 지도</span>
+          </div>
+
+          <!-- 검색 -->
+          <div class="nav-item search">
+            <form class="search-box">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="레시피/맛집 검색"
+              />
+              <button type="submit">검색</button>
+            </form>
+          </div>
+        </nav>
+      </div>
+
+      <main class="stage">
+        <div class="containers">
+          <div class="slides">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+          </div>
+          <div class="buttons">
+            <button class="prev">◀</button>
+            <button class="next">▶</button>
+          </div>
+
+          <div class="dots"></div>
+        </div>
+      </main>
+      <main2 class="main2">
+        <div class="category-wrap">
+          <div class="category">
+            <button class="cat-item active">양식</button>
+            <button class="cat-item">중식</button>
+            <button class="cat-item">한식</button>
+            <button class="cat-item">일식</button>
+          </div>
+
+          <div class="sub-menu">
+            <div class="sub-list"></div>
+          </div>
+        </div>
+        <div class="map-wrap">
+          <div class="map" id="map"></div>
+        </div>
+        <div class="eating-what">
+          <img class="pepe sad" src="image-float.png" alt="" />
+          <img class="pepe happy" src="a881e4a0100d9502adasd.png" alt="" />
+
+          <a href="survey.html" class="click-area"></a>
+        </div>
+      </main2>
+    </div>
+
+    <!-- JS 연결 -->
+  </body>
+  <script
+    type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=352fd6f92267a000366c752810dc58cd"
+  ></script>
+  <script>
+    var mapContainer = document.getElementById("map");
+    var options = {
+      center: new kakao.maps.LatLng(37.570175, 126.982359),
+      level: 3,
+    };
+
+    var map = new kakao.maps.Map(mapContainer, options);
+
+    var markerPosition = new kakao.maps.LatLng(37.570175, 126.982359);
+    var marker = new kakao.maps.Marker({
+      position: markerPosition,
+    });
+
+    marker.setMap(map);
+  </script>
+  <script src="slide.js"></script>
+  <script src="menu.js"></script>
+  <script src="recipe.js"></script>
+  <script>
+    const cats = document.querySelectorAll(".cat-item");
+
+    cats.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelector(".cat-item.active")?.classList.remove("active");
+        btn.classList.add("active");
+      });
+    });
+    const grouped = menus.reduce((acc, menu) => {
+      const key = menu.cuisine;
+
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+
+      acc[key].push(menu.name);
+
+      return acc;
+    }, {});
+
+    const data = grouped;
+
+    const buttons = document.querySelectorAll(".cat-item");
+    const subList = document.querySelector(".sub-list");
+
+    function render(category) {
+      subList.innerHTML = data[category]
+        .map((item) => `<div class="sub-item">${item}</div>`)
+        .join("");
+    }
+
+    render("양식");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        render(btn.innerText);
+      });
+    });
+
+    function render(category) {
+      const filtered = menus.filter((menu) => menu.cuisine === category);
+
+      subList.innerHTML = filtered
+        .map(
+          (menu) =>
+            `<button class="sub-item" data-id="${menu.id}">
+          ${menu.name}
+        </button>`,
+        )
+        .join("");
+    }
+    subList.addEventListener("click", (e) => {
+      if (e.target.classList.contains("sub-item")) {
+        const id = e.target.dataset.id;
+        console.log("선택된 id:", id);
+
+        // 필요하면 해당 메뉴 찾기
+        const selectedMenu = menus.find((menu) => menu.id == id);
+        console.log(selectedMenu);
+      }
+    });
+
+    subList.addEventListener("click", (e) => {
+      if (e.target.classList.contains("sub-item")) {
+        const id = e.target.dataset.id;
+
+        // 🔥 페이지 이동 + id 전달
+        window.location.href = `search.html?id=${id}`;
+      }
+    });
+  </script>
+</html>
